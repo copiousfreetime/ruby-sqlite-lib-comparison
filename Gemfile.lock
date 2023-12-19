@@ -1,0 +1,50 @@
+PATH
+  remote: ../../digital-fabric/extralite
+  specs:
+    extralite (2.3)
+
+PATH
+  remote: ../../sparklemotion/sqlite3-ruby
+  specs:
+    sqlite3 (1.6.9)
+      mini_portile2 (~> 2.8.0)
+
+PATH
+  remote: ../amalgalite
+  specs:
+    amalgalite (1.9.0)
+      arrayfields (~> 4.9)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    arrayfields (4.9.2)
+    benchmark-ips (2.13.0)
+    debug (1.9.0)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
+    io-console (0.7.1)
+    irb (1.10.1)
+      rdoc
+      reline (>= 0.3.8)
+    mini_portile2 (2.8.5)
+    psych (5.1.2)
+      stringio
+    rdoc (6.6.2)
+      psych (>= 4.0.0)
+    reline (0.4.1)
+      io-console (~> 0.5)
+    stringio (3.1.0)
+
+PLATFORMS
+  arm64-darwin-22
+
+DEPENDENCIES
+  amalgalite!
+  benchmark-ips
+  debug
+  extralite!
+  sqlite3!
+
+BUNDLED WITH
+   2.4.21
