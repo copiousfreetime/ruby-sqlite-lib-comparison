@@ -1,0 +1,6 @@
+[submodule "repos/extralite"]
+	path = repos/extralite
+	url = git@github.com:digital-fabric/extralite.git
+[submodule "repos/sqlite3-ruby"]
+	path = repos/sqlite3-ruby
+	url = git@github.com:sparklemotion/sqlite3-ruby.git

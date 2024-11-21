@@ -1,8 +1,8 @@
 source "https://rubygems.org/"
 
-gem 'sqlite3', path: "../../sparklemotion/sqlite3-ruby"
+gem 'sqlite3'
 gem 'amalgalite', path: "../amalgalite"
-gem 'extralite', path: "../../digital-fabric/extralite"
+gem 'extralite'
 #gem 'sqlite3'
 #gem 'amalgalite'
 #gem 'extralite'
