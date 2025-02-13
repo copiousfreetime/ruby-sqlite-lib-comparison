@@ -10,22 +10,28 @@ GEM
   specs:
     arrayfields (4.9.2)
     benchmark-ips (2.14.0)
-    debug (1.9.2)
+    date (3.4.1)
+    debug (1.10.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
     extralite (2.8.2)
-    io-console (0.7.2)
-    irb (1.14.1)
+    io-console (0.8.0)
+    irb (1.15.1)
+      pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     ostruct (0.6.1)
-    psych (5.2.0)
+    pp (0.6.2)
+      prettyprint
+    prettyprint (0.2.0)
+    psych (5.2.3)
+      date
       stringio
-    rdoc (6.8.1)
+    rdoc (6.12.0)
       psych (>= 4.0.0)
-    reline (0.5.11)
+    reline (0.6.0)
       io-console (~> 0.5)
-    sqlite3 (2.3.0-arm64-darwin)
+    sqlite3 (2.5.0-arm64-darwin)
     stringio (3.1.2)
 
 PLATFORMS
@@ -40,4 +46,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   2.4.21
+   2.6.3
