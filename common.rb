@@ -1,10 +1,11 @@
 require 'sqlite3'
 require 'extralite'
 require 'amalgalite'
-require 'debug'
+#require 'debug'
 
 require 'benchmark/ips'
 require 'fileutils'
+require 'stackprof'
 
 DB_PATH = 'tmp/sqlite3_perf_test.db'
 

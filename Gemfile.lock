@@ -1,15 +1,14 @@
 PATH
   remote: ../amalgalite
   specs:
-    amalgalite (1.9.5)
-      arrayfields (~> 4.9)
-      ostruct (~> 0.6)
+    amalgalite (2.0.0)
+      csv (~> 3.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    arrayfields (4.9.2)
     benchmark-ips (2.14.0)
+    csv (3.3.2)
     date (3.4.1)
     debug (1.10.0)
       irb (~> 1.10)
@@ -20,10 +19,13 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    ostruct (0.6.1)
+    optparse (0.6.0)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
+    profile-viewer (0.0.4)
+      optparse
+      webrick
     psych (5.2.3)
       date
       stringio
@@ -32,7 +34,10 @@ GEM
     reline (0.6.0)
       io-console (~> 0.5)
     sqlite3 (2.5.0-arm64-darwin)
+    stackprof (0.2.27)
     stringio (3.1.2)
+    vernier (1.5.0)
+    webrick (1.9.1)
 
 PLATFORMS
   arm64-darwin-22
@@ -43,7 +48,10 @@ DEPENDENCIES
   benchmark-ips
   debug
   extralite
+  profile-viewer
   sqlite3
+  stackprof
+  vernier
 
 BUNDLED WITH
    2.6.3

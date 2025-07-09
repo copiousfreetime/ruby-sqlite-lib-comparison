@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-
 require_relative './common'
+require 'stackprof'
+#require 'vernier'
 
 def sqlite3_run(count)
   db = SQLite3::Database.new(DB_PATH)
@@ -18,23 +19,63 @@ end
 
 def amalgalite_run(count)
   db = Amalgalite::Database.new(DB_PATH, "r")
+  db.type_map = ::Amalgalite::TypeMaps::StorageMap.new
   results = db.execute('select * from foo')
   db.close
   raise unless results.size == count
 end
 
-[10, 1000, 100000].each do |c|
+def load_results_meta(stmt_api, column_count)
+  column_count.times do |idx|
+    name     = stmt_api.column_name( idx )
+    db_name  = stmt_api.column_database_name( idx )
+    tbl_name = stmt_api.column_table_name( idx )
+    col_name = stmt_api.column_origin_name( idx )
+    schema = ::Amalgalite::Column.new( db_name, tbl_name, col_name, idx )
+    schema.declared_data_type = stmt_api.column_declared_type( idx )
+    #puts "#{name}: #{schema.inspect}"
+  end
+end
+
+def amalgalite_api_run(count)
+  mode = ::Amalgalite::SQLite3::Constants::Open::READWRITE | ::Amalgalite::SQLite3::Constants::Open::CREATE
+  api = Amalgalite::SQLite3::Database.open(DB_PATH, mode)
+
+  sql = "select * from foo"
+  stmt_api = api.prepare(sql)
+  result_meta = load_results_meta(stmt_api, 2)
+  results = []
+  loop do
+    case rc = stmt_api.step
+    when ::Amalgalite::SQLite3::Constants::ResultCode::ROW
+      id = stmt_api.column_int64( 0 )
+      txt = stmt_api.column_text( 1 )
+      results << [ id, txt ]
+    when ::Amalgalite::SQLite3::Constants::ResultCode::DONE
+      break
+    end
+  end
+  stmt_api.close
+  api.close
+  raise unless results.size == count
+end
+
+runs = [ 10, 1000, 1_000_000 ]
+runs[1..1].each do |c|
   puts; puts; puts "Record count: #{c}"
 
   prepare_database(c)
+  StackProf.run(mode: :cpu, raw: true, out: 'tmp/stackprof-cpu-amalgalite.dump') do
+    Benchmark.ips do |x|
+      x.config(:time => 5, :warmup => 3)
 
-  Benchmark.ips do |x|
-    x.config(:time => 3, :warmup => 1)
+      x.report("extralite") { extralite_run(c) }
+      x.report("amalgalite") { amalgalite_run(c) }
+      x.report("amalgalite-api") { amalgalite_api_run(c) }
 
-    x.report("extralite") { extralite_run(c) }
-    x.report("amalgalite") { amalgalite_run(c) }
-    x.report("sqlite3") { sqlite3_run(c) }
+      x.report("sqlite3") { sqlite3_run(c) }
 
-    x.compare!
+      x.compare!
+    end
   end
 end
