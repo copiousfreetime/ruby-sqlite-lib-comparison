@@ -16,6 +16,16 @@ def extralite_run(count)
   raise unless results.size == count
 end
 
+def extralite_iterator_run(count)
+  db = Extralite::Database.new(DB_PATH)
+  results = []
+  db.query('select * from foo') do |row|
+    results << row
+  end
+  db.close
+  raise unless results.size == count
+end
+
 def amalgalite_run(count)
   db = Amalgalite::Database.new(DB_PATH, "r")
   db.type_map = ::Amalgalite::TypeMaps::StorageMap.new
