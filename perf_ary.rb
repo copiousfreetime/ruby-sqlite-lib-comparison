@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 require_relative './common'
 require 'stackprof'
-#require 'vernier'
 
 def sqlite3_run(count)
   db = SQLite3::Database.new(DB_PATH)
@@ -33,7 +32,6 @@ def load_results_meta(stmt_api, column_count)
     col_name = stmt_api.column_origin_name( idx )
     schema = ::Amalgalite::Column.new( db_name, tbl_name, col_name, idx )
     schema.declared_data_type = stmt_api.column_declared_type( idx )
-    #puts "#{name}: #{schema.inspect}"
   end
 end
 
@@ -60,22 +58,21 @@ def amalgalite_api_run(count)
   raise unless results.size == count
 end
 
-runs = [ 10, 1000, 1_000_000 ]
-runs[1..1].each do |c|
+runs = [ 10, 1_000, 10_000, 1_000_000 ]
+runs.each do |c|
   puts; puts; puts "Record count: #{c}"
 
   prepare_database(c)
-  StackProf.run(mode: :cpu, raw: true, out: 'tmp/stackprof-cpu-amalgalite.dump') do
-    Benchmark.ips do |x|
-      x.config(:time => 5, :warmup => 3)
+  Benchmark.ips do |x|
+    x.config(:time => 5, :warmup => 3)
 
-      x.report("extralite") { extralite_run(c) }
-      x.report("amalgalite") { amalgalite_run(c) }
-      x.report("amalgalite-api") { amalgalite_api_run(c) }
+    x.report("extralite") { extralite_run(c) }
+    x.report("extralite-iterator") { extralite_iterator_run(c) }
+    x.report("amalgalite") { amalgalite_run(c) }
+    x.report("amalgalite-api") { amalgalite_api_run(c) }
 
-      x.report("sqlite3") { sqlite3_run(c) }
+    x.report("sqlite3") { sqlite3_run(c) }
 
-      x.compare!
-    end
+    x.compare!
   end
 end
