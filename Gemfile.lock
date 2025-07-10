@@ -1,57 +1,78 @@
-PATH
-  remote: ../amalgalite
-  specs:
-    amalgalite (2.0.0)
-      csv (~> 3.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
+    amalgalite (1.9.4)
+      arrayfields (~> 4.9)
+    arrayfields (4.9.2)
     benchmark-ips (2.14.0)
     csv (3.3.2)
     date (3.4.1)
-    debug (1.10.0)
+    debug (1.11.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
-    extralite (2.8.2)
+    erb (5.0.1)
+    extralite (2.12)
     io-console (0.8.0)
-    irb (1.15.1)
+    irb (1.15.2)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     optparse (0.6.0)
+    ostruct (0.6.1)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
-    profile-viewer (0.0.4)
+    profile-viewer (0.0.5)
       optparse
       webrick
-    psych (5.2.3)
+    psych (5.2.6)
       date
       stringio
-    rdoc (6.12.0)
+    rake (13.3.0)
+    rdoc (6.14.2)
+      erb
       psych (>= 4.0.0)
-    reline (0.6.0)
+    reline (0.6.1)
       io-console (~> 0.5)
-    sqlite3 (2.5.0-arm64-darwin)
+    sqlite3 (2.7.2-aarch64-linux-gnu)
+    sqlite3 (2.7.2-aarch64-linux-musl)
+    sqlite3 (2.7.2-arm-linux-gnu)
+    sqlite3 (2.7.2-arm-linux-musl)
+    sqlite3 (2.7.2-arm64-darwin)
+    sqlite3 (2.7.2-x86-linux-gnu)
+    sqlite3 (2.7.2-x86-linux-musl)
+    sqlite3 (2.7.2-x86_64-darwin)
+    sqlite3 (2.7.2-x86_64-linux-gnu)
+    sqlite3 (2.7.2-x86_64-linux-musl)
     stackprof (0.2.27)
-    stringio (3.1.2)
-    vernier (1.5.0)
+    stringio (3.1.7)
+    vernier (1.8.0)
     webrick (1.9.1)
 
 PLATFORMS
-  arm64-darwin-22
-  arm64-darwin-23
+  aarch64-linux-gnu
+  aarch64-linux-musl
+  arm-linux-gnu
+  arm-linux-musl
+  arm64-darwin
+  x86-linux-gnu
+  x86-linux-musl
+  x86_64-darwin
+  x86_64-linux-gnu
+  x86_64-linux-musl
 
 DEPENDENCIES
-  amalgalite!
+  amalgalite
   benchmark-ips
+  csv
   debug
   extralite
+  ostruct
   profile-viewer
+  rake
   sqlite3
   stackprof
   vernier
 
 BUNDLED WITH
-   2.6.3
+   2.6.8
